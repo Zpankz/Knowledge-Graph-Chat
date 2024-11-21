@@ -18,7 +18,3 @@ A system that builds knowledge graphs from literary texts and enables natural la
 - `app_streamlit.py`: Streamlit web interface
 - `llm.py`: Embeddings model configuration
 - `rate_limiter.py`: API rate limiting utilities
-
-## Installation
-
-1. Clone the repository: 
