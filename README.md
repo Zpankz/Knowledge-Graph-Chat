@@ -35,6 +35,7 @@ This system implements several key concepts:
 ### Core Modules
 - `knowledge_graph.py`: Graph construction and management
 - `graph_rag.py`: Graph-based retrieval system
+<<<<<<< HEAD
 - `graph_cot.py`: Chain of Thought reasoning engine
 - `graph_query.py`: Query processing and document retrieval
 - `agent.py`: Interactive chat agent
@@ -44,3 +45,9 @@ This system implements several key concepts:
 - `rate_limiter.py`: API rate limiting
 - `models.py`: Data models and types
 - `llm.py`: LLM and embedding configurations
+=======
+- `test_graph_rag.py`: Terminal interface for testing
+- `app_streamlit.py`: Streamlit web interface
+- `llm.py`: Embeddings model configuration
+- `rate_limiter.py`: API rate limiting utilities
+>>>>>>> 695e7696225d4908b8dae0dc9b2bd5e6060de165
