@@ -1,20 +1,20 @@
 from typing import List, Dict
 import networkx as nx
 from langchain_core.documents import Document
+from langchain_openai import ChatOpenAI
 import numpy as np
 import community.community_louvain as community_detection
 import logging
 from config import config
 from src.llm import embeddings
 from src.graph_cot import GraphCoT
-from langchain_groq import ChatGroq
 
 logger = logging.getLogger(__name__)
 
 class GraphQuery:
     """Enhanced graph querying with narrative-aware community detection"""
     
-    def __init__(self, graph: nx.MultiDiGraph, llm: ChatGroq):
+    def __init__(self, graph: nx.MultiDiGraph, llm: ChatOpenAI):
         self.graph = graph
         self.llm = llm
         self.communities = self._detect_narrative_communities()

@@ -35,8 +35,8 @@ class KnowledgeGraphPipeline:
         # Initialize LLM
         self.llm = ChatOpenAI(
             api_key=api_key,
-            model_name=config.LLM.model_name,
-            temperature=config.LLM.temperature
+            model_name="gpt-4o",
+            temperature=0
         )
         self.builder = KnowledgeGraphBuilder(api_key=api_key)
         self.rate_limiter = CustomRateLimiter(

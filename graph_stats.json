@@ -1,22 +1,17 @@
 {
-  "timestamp": "2024-11-21T22:53:18.784115",
-  "num_nodes": 75,
-  "num_edges": 295,
+  "timestamp": "2025-01-30T01:09:21.501800",
+  "num_nodes": 90,
+  "num_edges": 484,
   "node_types": [
-    "Entity",
     "Chunk",
     "Community",
+    "Entity",
     "Document"
   ],
   "edge_types": [
-    "CONTINUATION",
-    "CONTINUES",
-    "RELATES_TO",
-    "IN_COMMUNITY",
-    "CONTINUED_IN",
     "PART_OF",
-    "SHARED_THEME",
+    "RELATES_TO",
     "HAS_ENTITY",
-    "BELONGS_TO"
+    "IN_COMMUNITY"
   ]
 }

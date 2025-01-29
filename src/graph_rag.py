@@ -30,8 +30,8 @@ class GraphRAG:
         self.graph_query = graph_query
         self.llm = ChatOpenAI(
             api_key=os.getenv('OPENAI_API_KEY'),
-            model_name=config.LLM.model_name,
-            temperature=config.LLM.temperature
+            model_name="gpt-4o",
+            temperature=0
         )
         self.llm_calls = 0
         self.prompt_tokens = 0

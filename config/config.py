@@ -1,13 +1,12 @@
 """Configuration settings for the knowledge graph application."""
 from typing import Dict, Any
 from dataclasses import dataclass
+from pathlib import Path
 
 @dataclass
 class LLMConfig:
-    model_name: str = "llama3-8b-8192"
-    temperature: float = 0.3
-    max_tokens: int = 4096
-    top_p: float = 0.9
+    model_name: str = "gpt-4o"
+    temperature: float = 0
 
 @dataclass
 class GraphConfig:
@@ -19,6 +18,7 @@ class GraphConfig:
     font_size: int = 8
     edge_font_size: int = 6
     figure_size: tuple = (12, 8)
+    save_path: str = str(Path("data/knowledge_graph.pkl"))
 
 @dataclass
 class RateLimiterConfig:
@@ -43,6 +43,14 @@ class Config:
         self.GRAPH = GraphConfig()
         self.RATE_LIMITER = RateLimiterConfig()
         self.RAG = RAGConfig()
+        
+        # Streamlit configuration
+        self.STREAMLIT_CONFIG = {
+            "page_title": "Knowledge Graph Explorer",
+            "page_icon": "🧠",
+            "layout": "wide",
+            "initial_sidebar_state": "expanded"
+        }
         
         # File paths
         self.GRAPH_SAVE_PATH = "knowledge_graph.gml"

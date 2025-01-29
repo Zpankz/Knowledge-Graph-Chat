@@ -5,7 +5,7 @@ import networkx as nx
 from dotenv import load_dotenv
 import os
 from src.knowledge_graph import KnowledgeGraphBuilder
-from remove.graph_rag import GraphRetriever
+from legacy.graph_rag import GraphRetriever
 from langchain_openai import ChatOpenAI
 
 # Configure logging
@@ -47,9 +47,11 @@ class GraphRagTester:
         logger.info(f"Built graph with {len(graph.nodes())} nodes and {len(graph.edges())} edges")
         return graph
         
-    def setup_retriever(self, graph: nx.DiGraph) -> GraphRetriever:
+    def setup_retriever(self, graph: nx.MultiDiGraph) -> GraphRetriever:
         """Setup the graph retriever"""
         logger.info("Setting up graph retriever...")
+        if not isinstance(graph, nx.MultiDiGraph):
+            raise ValueError("Graph must be a MultiDiGraph instance")
         retriever = GraphRetriever(graph=graph, llm=self.llm)
         return retriever
         

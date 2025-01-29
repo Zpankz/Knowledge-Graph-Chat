@@ -8,9 +8,11 @@ from docling.document_converter import DocumentConverter
 from docling.datamodel.base_models import DocumentStream
 from io import BytesIO
 import json
+import pickle
 import community.community_louvain as community_detection
 from src.llm import embeddings
 from config import config
+from pathlib import Path
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -35,13 +37,57 @@ class KnowledgeGraph(BaseModel):
     entities: List[Entity]
     relationships: List[Relationship]
 
+def load_graph(file_path: str) -> nx.MultiDiGraph:
+    """Load a saved knowledge graph from a file.
+    
+    Args:
+        file_path: Path to the saved graph file
+        
+    Returns:
+        NetworkX MultiDiGraph object
+        
+    Raises:
+        FileNotFoundError: If the file doesn't exist
+        ValueError: If the file is not a valid pickle file or is corrupted
+    """
+    try:
+        if not Path(file_path).exists():
+            raise FileNotFoundError(f"Graph file not found at {file_path}")
+            
+        with open(file_path, 'rb') as f:
+            try:
+                graph = pickle.load(f)
+                if not isinstance(graph, nx.MultiDiGraph):
+                    raise ValueError(f"File contains {type(graph)} instead of expected NetworkX MultiDiGraph")
+                return graph
+            except (pickle.UnpicklingError, EOFError) as e:
+                raise ValueError(f"File at {file_path} is not a valid pickle file or is corrupted: {str(e)}")
+    except Exception as e:
+        logger.error(f"Error loading graph from {file_path}: {str(e)}")
+        raise
+
+def save_graph(graph: nx.MultiDiGraph, file_path: str) -> None:
+    """Save a knowledge graph to a file.
+    
+    Args:
+        graph: NetworkX MultiDiGraph object to save
+        file_path: Path where to save the graph
+    """
+    try:
+        with open(file_path, 'wb') as f:
+            pickle.dump(graph, f, pickle.HIGHEST_PROTOCOL)
+        logger.info(f"Graph saved successfully to {file_path}")
+    except Exception as e:
+        logger.error(f"Error saving graph to {file_path}: {str(e)}")
+        raise
+
 class KnowledgeGraphBuilder:
     def __init__(self, api_key: str):
         """Initialize the builder with API key"""
         self.llm = ChatOpenAI(
             api_key=api_key,
-            model_name=config.LLM.model_name,
-            temperature=config.LLM.temperature
+            model_name="gpt-4o",
+            temperature=0
         )
         self.graph = nx.MultiDiGraph()
         logger.info("KnowledgeGraphBuilder initialized")

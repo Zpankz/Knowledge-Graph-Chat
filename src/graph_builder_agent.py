@@ -49,8 +49,8 @@ class GraphBuilderAgent:
     def __init__(self, api_key: str):
         self.llm = ChatOpenAI(
             api_key=api_key,
-            model_name="mixtral-8x7b-32768",
-            temperature=0.3
+            model_name="gpt-4o",
+            temperature=0
         )
         
         # Initialize with base schema
@@ -493,7 +493,7 @@ Provide attributes in key-value format."""
         """Build and iteratively improve knowledge graph"""
         try:
             # Initial graph construction
-            builder = KnowledgeGraphBuilder(api_key=os.getenv('GROQ_API_KEY'))
+            builder = KnowledgeGraphBuilder(api_key=os.getenv('OPENAI_API_KEY'))
             initial_graph = builder.build(text)
             
             # Apply Chain of Thought improvements

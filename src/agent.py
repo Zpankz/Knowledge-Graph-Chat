@@ -51,8 +51,8 @@ Remember to:
         
         self.llm = ChatOpenAI(
             api_key=os.getenv('OPENAI_API_KEY'),
-            model_name=config.LLM.model_name,
-            temperature=config.LLM.temperature
+            model_name="gpt-4o",
+            temperature=0
         )
         
         # Define tools
