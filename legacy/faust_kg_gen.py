@@ -3,7 +3,7 @@ import logging
 from typing import Dict
 import networkx as nx
 from dotenv import load_dotenv
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 from src.knowledge_graph import KnowledgeGraphBuilder
 
 logger = logging.getLogger(__name__)
@@ -17,14 +17,14 @@ class FaustKGGenerator:
         """Initialize necessary components"""
         try:
             load_dotenv()
-            api_key = os.getenv('GROQ_API_KEY')
+            api_key = os.getenv('OPENAI_API_KEY')
             if not api_key:
-                raise ValueError("GROQ_API_KEY not found")
+                raise ValueError("OPENAI_API_KEY not found")
                 
-            self.llm = ChatGroq(
+            self.llm = ChatOpenAI(
                 api_key=api_key,
-                model_name="mixtral-8x7b-32768",
-                temperature=0.3
+                model_name="gpt-4o",
+                temperature=0
             )
             
         except Exception as e:
@@ -35,7 +35,7 @@ class FaustKGGenerator:
         """Process text and generate knowledge graph asynchronously"""
         try:
             # Create knowledge graph
-            builder = KnowledgeGraphBuilder(api_key=os.getenv('GROQ_API_KEY'))
+            builder = KnowledgeGraphBuilder(api_key=os.getenv('OPENAI_API_KEY'))
             graph = builder.build(text)
             
             # Get statistics

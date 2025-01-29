@@ -12,7 +12,7 @@ from datetime import datetime
 import networkx as nx
 from typing import List
 from langchain_core.documents import Document
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 
 from config import config
 from src import (
@@ -33,7 +33,7 @@ class KnowledgeGraphPipeline:
     def __init__(self, api_key: str):
         self.api_key = api_key
         # Initialize LLM
-        self.llm = ChatGroq(
+        self.llm = ChatOpenAI(
             api_key=api_key,
             model_name=config.LLM.model_name,
             temperature=config.LLM.temperature
@@ -126,9 +126,9 @@ class KnowledgeGraphPipeline:
 def main():
     # Load environment variables
     load_dotenv()
-    api_key = os.getenv('GROQ_API_KEY')
+    api_key = os.getenv('OPENAI_API_KEY')
     if not api_key:
-        raise ValueError("GROQ_API_KEY not found in environment variables")
+        raise ValueError("OPENAI_API_KEY not found in environment variables")
         
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='Knowledge Graph Builder and Query Tool')

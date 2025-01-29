@@ -8,7 +8,7 @@ from langgraph.prebuilt import ToolNode
 from langchain_core.messages import (
     AIMessage, HumanMessage, SystemMessage, BaseMessage
 )
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 from langchain_core.tools import Tool
 from langgraph.graph.message import add_messages
 import networkx as nx
@@ -47,7 +47,7 @@ class GraphBuilderAgent:
     """Agent for iteratively improving knowledge graph schema and ontology"""
     
     def __init__(self, api_key: str):
-        self.llm = ChatGroq(
+        self.llm = ChatOpenAI(
             api_key=api_key,
             model_name="mixtral-8x7b-32768",
             temperature=0.3

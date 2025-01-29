@@ -2,7 +2,7 @@ from typing import Dict, List, Any, Tuple, Set, Optional
 from pydantic import BaseModel, Field
 import networkx as nx
 import matplotlib.pyplot as plt
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 import logging
 from docling.document_converter import DocumentConverter
 from docling.datamodel.base_models import DocumentStream
@@ -38,7 +38,7 @@ class KnowledgeGraph(BaseModel):
 class KnowledgeGraphBuilder:
     def __init__(self, api_key: str):
         """Initialize the builder with API key"""
-        self.llm = ChatGroq(
+        self.llm = ChatOpenAI(
             api_key=api_key,
             model_name=config.LLM.model_name,
             temperature=config.LLM.temperature

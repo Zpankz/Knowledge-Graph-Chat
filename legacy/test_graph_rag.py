@@ -1,11 +1,12 @@
 import logging
 from typing import Dict
+from langchain_groq import ChatGroq
 import networkx as nx
 from dotenv import load_dotenv
 import os
 from src.knowledge_graph import KnowledgeGraphBuilder
 from remove.graph_rag import GraphRetriever
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 
 # Configure logging
 logging.basicConfig(
@@ -18,14 +19,14 @@ class GraphRagTester:
     def __init__(self):
         """Initialize the tester with necessary components"""
         load_dotenv()
-        self.api_key = os.getenv('GROQ_API_KEY')
+        self.api_key = os.getenv('OPENAI_API_KEY')
         if not self.api_key:
-            raise ValueError("GROQ_API_KEY not found")
+            raise ValueError("OPENAI_API_KEY not found")
             
-        self.llm = ChatGroq(
+        self.llm = ChatOpenAI(
             api_key=self.api_key,
-            model_name="llama3-8b-8192",
-            temperature=0.3
+            model_name="gpt-4o",
+            temperature=0
         )
         
         logger.info("Initialized GraphRagTester")

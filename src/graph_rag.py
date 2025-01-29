@@ -2,7 +2,7 @@
 from typing import Dict, List, Any
 from dataclasses import dataclass
 import logging
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 from langchain_core.documents import Document
 import numpy as np
 import json
@@ -28,8 +28,8 @@ class GraphRAG:
     
     def __init__(self, graph_query: GraphQuery):
         self.graph_query = graph_query
-        self.llm = ChatGroq(
-            api_key=os.getenv('GROQ_API_KEY'),
+        self.llm = ChatOpenAI(
+            api_key=os.getenv('OPENAI_API_KEY'),
             model_name=config.LLM.model_name,
             temperature=config.LLM.temperature
         )

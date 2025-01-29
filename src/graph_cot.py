@@ -3,7 +3,7 @@ from typing import List, Dict, Any, Set, Tuple
 import random
 import networkx as nx
 from pydantic import BaseModel, Field
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 import logging
 import json
 from src.llm import embeddings
@@ -26,7 +26,7 @@ class RandomWalk(BaseModel):
 class GraphCoT:
     """Chain of Thought processor for knowledge graphs"""
     
-    def __init__(self, graph: nx.MultiDiGraph, llm: ChatGroq):
+    def __init__(self, graph: nx.MultiDiGraph, llm: ChatOpenAI):
         self.graph = graph
         self.llm = llm
         

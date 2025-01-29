@@ -10,7 +10,7 @@ from langchain_core.messages import (
     FunctionMessage, 
     SystemMessage
 )
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 from langchain_core.tools import Tool
 from langgraph.graph.message import add_messages
 import logging
@@ -49,8 +49,8 @@ Remember to:
 - Acknowledge when information isn't available
 """)
         
-        self.llm = ChatGroq(
-            api_key=os.getenv('GROQ_API_KEY'),
+        self.llm = ChatOpenAI(
+            api_key=os.getenv('OPENAI_API_KEY'),
             model_name=config.LLM.model_name,
             temperature=config.LLM.temperature
         )
